@@ -15,7 +15,7 @@ HEIGHT = window.innerHeight
 
 delay = (t,f) -> setTimeout f, t
 
-resolution = 48
+resolution = 38
 frequency = 50
 buffsize = 1000
 
@@ -36,8 +36,8 @@ es.onmessage = (e) ->
 
 init = ->
 
-  camera = new THREE.PerspectiveCamera(40, WIDTH / HEIGHT, 1, 1000)
-  camera.position.z = 500
+  camera = new THREE.PerspectiveCamera(80, WIDTH / HEIGHT, 1, 1000)
+  camera.position.z = 300
 
 
   # controls = new THREE.TrackballControls( camera )
@@ -118,10 +118,10 @@ init = ->
 
   # particle system
   object = new THREE.ParticleSystem geometry, shaderMaterial
-  object.dynamic = true
-  object.position.x = -20
-  object.position.y = -0 # position verticale par rapport à la grille
-  object.position.z = -20
+  object.dynamic = false
+  object.position.x = -100
+  object.position.y = 5 # position verticale par rapport à la grille
+  object.position.z = -100
   # custom attributes
   vertices = object.geometry.vertices
   values_size = attributes.size.value

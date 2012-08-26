@@ -34,7 +34,7 @@
     return setTimeout(f, t);
   };
 
-  resolution = 48;
+  resolution = 38;
 
   frequency = 50;
 
@@ -57,8 +57,8 @@
 
   init = function() {
     var container, dummyMaterial, geometry, gui, i, m, nb_voxels, plane, planeMaterial, scaling, shaderMaterial, values_color, values_size, vertex, vertices, x, y, z, _i, _j, _k;
-    camera = new THREE.PerspectiveCamera(40, WIDTH / HEIGHT, 1, 1000);
-    camera.position.z = 500;
+    camera = new THREE.PerspectiveCamera(80, WIDTH / HEIGHT, 1, 1000);
+    camera.position.z = 300;
     scene = new THREE.Scene();
     scene.add(camera);
     attributes = {
@@ -121,10 +121,10 @@
     m = void 0;
     dummyMaterial = new THREE.MeshFaceMaterial();
     object = new THREE.ParticleSystem(geometry, shaderMaterial);
-    object.dynamic = true;
-    object.position.x = -20;
-    object.position.y = -0;
-    object.position.z = -20;
+    object.dynamic = false;
+    object.position.x = -100;
+    object.position.y = 5;
+    object.position.z = -100;
     vertices = object.geometry.vertices;
     values_size = attributes.size.value;
     values_color = attributes.ca.value;
