@@ -92,7 +92,7 @@
       texture: {
         type: "t",
         value: 0,
-        texture: THREE.ImageUtils.loadTexture("http://arcane-waters-8283.herokuapp.com/extures/sprites/ball.png")
+        texture: THREE.ImageUtils.loadTexture("http://arcane-waters-8283.herokuapp.com/textures/sprites/ball.png")
       }
     };
     uniforms.texture.texture.wrapS = uniforms.texture.texture.wrapT = THREE.RepeatWrapping;
