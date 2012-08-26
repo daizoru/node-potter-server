@@ -64,15 +64,14 @@ app.get '/legacy', ->
   @redirect '/hello'
 
 app.options '/', ->
+  @headers 'Access-Control-Allow-Origin': '*'
   @headers 'Access-Control-Allow-Methods': 'GET, PUT, DELETE'
   @render ''
 
-app.get '/file', ->
-  @headers 'Content-Type': 'text/html'
-  @response.write(fs.readFileSync(__dirname + '/sse-node.html'))
-  @response.end()
 
 app.eventsource '/stream', ->
+  @headers 'Access-Control-Allow-Origin': '*'
+  @headers 'Access-Control-Allow-Methods': 'GET, PUT, DELETE'
   interval = Math.round((Number) @params.interval)
   buffsize = Math.round((Number) @params.buffsize)
   resolution = Math.round((Number) @params.resolution)
