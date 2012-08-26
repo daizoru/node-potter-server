@@ -5,8 +5,9 @@
   "author": "Julian Bilcke <julian.bilcke@daizoru.com>",
   "private": true,
   "scripts"     : {
-    "build"     : "coffee --compile --output public/lib/ src/",
-    "watch"     : "coffee --watch --compile --output public/lib/ src/", 
+    "run"       : "node_modules/coffee-script/bin/coffee app.coffee",
+    "build"     : "node_modules/coffee-script/bin/coffee --compile --output public/lib/ src/",
+    "watch"     : "node_modules/coffee-script/bin/coffee --watch --compile --output public/lib/ src/", 
     "test"      : "mocha",
     "html"      : "mocha --reporter doc"
   },
