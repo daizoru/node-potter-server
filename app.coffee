@@ -91,4 +91,4 @@ app.template 'hello.ejs', """
 Hello <%= name %>, welcome to <%= site_name() %>! Cookie: “<%= message %>”
 """
 
-app.run 4567
+app.run process.env.PORT || 5000
