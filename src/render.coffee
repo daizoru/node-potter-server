@@ -37,7 +37,7 @@ es.onmessage = (e) ->
 init = ->
 
   camera = new THREE.PerspectiveCamera(80, WIDTH / HEIGHT, 1, 1000)
-  camera.position.z = 300
+  camera.position.z = 200
 
 
   # controls = new THREE.TrackballControls( camera )
@@ -163,7 +163,7 @@ init = ->
   container.appendChild stats.domElement
   
   gui = new DAT.GUI()
-  gui.add( uniforms.cell_size, 'value' ).name( 'cell_size' ).min( 20 ).max( 180 ).step( 0.5 )
+  gui.add( uniforms.cell_size, 'value' ).name( 'cell_size' ).min( 2 ).max( 100 ).step( 0.4 )
   gui.close()
   mouse = new THREE.Vector3( 0, 0, 1 )
 

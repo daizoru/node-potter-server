@@ -58,7 +58,7 @@
   init = function() {
     var container, dummyMaterial, geometry, gui, i, m, nb_voxels, plane, planeMaterial, scaling, shaderMaterial, values_color, values_size, vertex, vertices, x, y, z, _i, _j, _k;
     camera = new THREE.PerspectiveCamera(80, WIDTH / HEIGHT, 1, 1000);
-    camera.position.z = 300;
+    camera.position.z = 200;
     scene = new THREE.Scene();
     scene.add(camera);
     attributes = {
@@ -159,7 +159,7 @@
     stats.domElement.style.top = "0px";
     container.appendChild(stats.domElement);
     gui = new DAT.GUI();
-    gui.add(uniforms.cell_size, 'value').name('cell_size').min(20).max(180).step(0.5);
+    gui.add(uniforms.cell_size, 'value').name('cell_size').min(2).max(100).step(0.4);
     gui.close();
     mouse = new THREE.Vector3(0, 0, 1);
     document.addEventListener('mousemove', onDocumentMouseMove, false);
