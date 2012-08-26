@@ -36,7 +36,7 @@
 
   resolution = 38;
 
-  frequency = 50;
+  frequency = 150;
 
   buffsize = 1000;
 

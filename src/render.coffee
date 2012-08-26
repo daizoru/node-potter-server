@@ -16,7 +16,7 @@ HEIGHT = window.innerHeight
 delay = (t,f) -> setTimeout f, t
 
 resolution = 38
-frequency = 50
+frequency = 150 #50
 buffsize = 1000
 
 es = new EventSource "stream?interval=#{frequency}&buffsize=#{buffsize}&resolution=#{resolution}"
