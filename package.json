@@ -2,16 +2,16 @@
   "name": "node-potter-server",
   "description": "An awesome real time application",
   "version": "0.0.1",
-  "author": "Me <me@mydomain.com>",
+  "author": "Julian Bilcke <julian.bilcke@daizoru.com>",
   "private": true,
-  "main" : "app.js",
+  "scripts"     : {
+    "build"     : "coffee --compile --output public/lib/ src/",
+    "watch"     : "coffee --watch --compile --output public/lib/ src/", 
+    "test"      : "mocha",
+    "html"      : "mocha --reporter doc"
+  },
   "engines": { "node": ">= 0.6.0" },
   "dependencies": {
-    "socketstream": "0.3.x",
-    "ss-coffee": "0.1.x",
-    "ss-jade": "0.1.x",
-    "ss-stylus": "0.1.x",
-    "ss-hogan": "0.1.x",
-    "ss-coffeekup" : "0.1.x"
+    "berliner" : ""
   }
 }
