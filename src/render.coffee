@@ -19,7 +19,7 @@ resolution = 38
 frequency = 50
 buffsize = 1000
 
-es = new EventSource "http://localhost:4567/stream?interval=#{frequency}&buffsize=#{buffsize}&resolution=#{resolution}"
+es = new EventSource "stream?interval=#{frequency}&buffsize=#{buffsize}&resolution=#{resolution}"
 es.onmessage = (e) -> 
   points = JSON.parse e.data
   #console.dir points
