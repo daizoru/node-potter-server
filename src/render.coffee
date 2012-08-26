@@ -27,7 +27,8 @@ es.onmessage = (e) ->
   for point in points
     [x,y,z,visible] = point
     #console.log "x: "+x+", y: "+y+", z: "+z+" is "+visible
-    i = (x * y * z) * (x * y) + (x * y) + z
+    i = x + y*resolution + z*resolution*resolution
+    #i = (x * y * z) * (x * y) + (x * y) + z
     #delay 0, -> 
     attributes.visible.value[i] = visible
     #attributes.size.needsUpdate = true

@@ -49,7 +49,7 @@
     for (_i = 0, _len = points.length; _i < _len; _i++) {
       point = points[_i];
       x = point[0], y = point[1], z = point[2], visible = point[3];
-      i = (x * y * z) * (x * y) + (x * y) + z;
+      i = x + y * resolution + z * resolution * resolution;
       _results.push(attributes.visible.value[i] = visible);
     }
     return _results;
