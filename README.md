@@ -1,6 +1,7 @@
-# Welcome to your new realtime app
 
 
-TODO
+# experimental voxel viewer for node-potter models
 
- Look at : https://dashku.com
+test :
+
+![test1](https://raw.github.com/daizoru/node-potter-server/master/public/screenshots/test1.jpg)
