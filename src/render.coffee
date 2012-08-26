@@ -88,7 +88,7 @@ init = ->
     texture:
       type: "t"
       value: 0
-      texture: THREE.ImageUtils.loadTexture "textures/sprites/ball.png"
+      texture: THREE.ImageUtils.loadTexture "thttp://arcane-waters-8283.herokuapp.com/extures/sprites/ball.png"
 
   uniforms.texture.texture.wrapS = uniforms.texture.texture.wrapT = THREE.RepeatWrapping
   shaderMaterial = new THREE.ShaderMaterial
