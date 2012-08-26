@@ -13,6 +13,25 @@ center.z = - 2
 WIDTH = window.innerWidth
 HEIGHT = window.innerHeight
 
+delay = (t,f) -> setTimeout f, t
+
+resolution = 48
+frequency = 50
+buffsize = 1000
+
+es = new EventSource "http://localhost:4567/stream?interval=#{frequency}&buffsize=#{buffsize}&resolution=#{resolution}"
+es.onmessage = (e) -> 
+  points = JSON.parse e.data
+  #console.dir points
+
+  for point in points
+    [x,y,z,visible] = point
+    #console.log "x: "+x+", y: "+y+", z: "+z+" is "+visible
+    i = (x * y * z) * (x * y) + (x * y) + z
+    #delay 0, -> 
+    attributes.visible.value[i] = visible
+    #attributes.size.needsUpdate = true
+
 
 init = ->
 
@@ -43,6 +62,10 @@ init = ->
       type: "f"
       value: []
 
+    visible:
+      type: "f"
+      value: []
+
     ca:
       type: "c"
       value: []
@@ -51,6 +74,7 @@ init = ->
     cell_size:
       type: "f"
       value: 80.0
+      old_value: -1
 
     amplitude:
       type: "f"
@@ -72,40 +96,43 @@ init = ->
     vertexShader: document.getElementById("vertexshader").textContent
     fragmentShader: document.getElementById("fragmentshader").textContent
 
-  scaling = 12
+
   geometry = new THREE.Geometry()
-  for x in [-10..10]
-    for y in [-10..10]
-      for z in [-10..10]
+  scaling = 200
+  for x in [0...resolution]
+    for y in [0...resolution]
+      for z in [0...resolution]
         vertex = new THREE.Vector3()
         vertex.x = x
         vertex.y = y
         vertex.z = z
-        vertex.multiplyScalar scaling
+        vertex.multiplyScalar scaling / resolution
         geometry.vertices.push vertex
 
-  vc1 = geometry.vertices.length
+  console.log "voxels: "+geometry.vertices.length
+  nb_voxels = geometry.vertices.length
   m = undefined
   dummyMaterial = new THREE.MeshFaceMaterial()
-  radius = 200
-  
+
+
   # particle system
   object = new THREE.ParticleSystem geometry, shaderMaterial
   object.dynamic = true
-  
+  object.position.x = -20
+  object.position.y = -0 # position verticale par rapport à la grille
+  object.position.z = -20
   # custom attributes
   vertices = object.geometry.vertices
   values_size = attributes.size.value
   values_color = attributes.ca.value
-  v = 0
-
-  while v < vertices.length
-    values_size[v] = 80
-    values_color[v] = new THREE.Color 0xffffff
-    values_color[v].setHSV 0.4 + 0.1 * (v / vc1), 0.99, 1.0
-    v++
+  i = 0
+  while i < vertices.length
+    values_size[i] = 80
+    values_color[i] = new THREE.Color 0xffffff
+    values_color[i].setHSV 0.4 + 0.1 * (i / nb_voxels), 0.99, 1.0
+    i++
   
-  console.log( vertices.length )
+  console.log vertices.length
   scene.add object
 
   planeMaterial = new THREE.MeshBasicMaterial
@@ -135,7 +162,7 @@ init = ->
   container.appendChild stats.domElement
   
   gui = new DAT.GUI()
-  gui.add( uniforms.cell_size, 'value' ).name( 'cell_size' ).min( 40 ).max( 180 ).step( 0.5 )
+  gui.add( uniforms.cell_size, 'value' ).name( 'cell_size' ).min( 20 ).max( 180 ).step( 0.5 )
   gui.close()
   mouse = new THREE.Vector3( 0, 0, 1 )
 
@@ -163,10 +190,14 @@ render = ->
   #object.rotation.y = object.rotation.z = 0.02 * time
   i = 0
 
+  #if uniforms.cell_size.value != uniforms.cell_size.old_value
+  #  uniforms.cell_size.old_value = uniforms.cell_size.value
   while i < attributes.size.value.length
-    attributes.size.value[i] = uniforms.cell_size.value
+    attributes.size.value[i] = attributes.visible.value[i] * uniforms.cell_size.value
     i++
   attributes.size.needsUpdate = true
+
+
   renderer.render scene, camera
   #controls.update()
 Detector.addGetWebGLMessage()  unless Detector.webgl

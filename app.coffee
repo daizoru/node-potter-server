@@ -4,6 +4,7 @@ app.public = __dirname + '/public'
 app.views  = __dirname + '/views'
 app.session_secret = 'abc123'
 
+repeat = (t,f) -> setInterval f, t
 app.helpers
   inc_counter: ->
     @session.counter ||= 0
@@ -71,12 +72,20 @@ app.get '/file', ->
   @response.write(fs.readFileSync(__dirname + '/sse-node.html'))
   @response.end()
 
-app.websocket '/ws/:name', ->
-  @socket.onmessage = (e) =>
-    @socket.send @params.name + ': ' + e.data
-
-app.eventsource '/ws/:name', ->
-  setInterval (=> @socket.send @params.name + ': PUSH!'), 5000
+app.eventsource '/stream', ->
+  interval = Math.round((Number) @params.interval)
+  buffsize = Math.round((Number) @params.buffsize)
+  resolution = Math.round((Number) @params.resolution)
+  repeat interval, => 
+    points = []
+    for p in [0..buffsize]
+      points.push [
+        Math.round(Math.random() * resolution)
+        Math.round(Math.random() * resolution)
+        Math.round(Math.random() * resolution)       
+        Math.round(Math.random())
+      ]
+    @socket.send JSON.stringify(points)
 
 app.template 'hello.ejs', """
 Hello <%= name %>, welcome to <%= site_name() %>! Cookie: “<%= message %>”
